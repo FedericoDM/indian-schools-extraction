@@ -1,6 +1,6 @@
 # Indian Schools - Webscraping
 
-The following code provides a _rough_ approach to obtain data from the schools displayed in the following (site)[https://schoolgis.nic.in/],
+The following code provides a _rough_ approach to obtain data from the schools displayed in the following [site](https://schoolgis.nic.in/).
 
 
 The folder named **format_data** contains a notebook which concats all the extracted data and formats it as desired.
