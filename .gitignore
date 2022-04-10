@@ -1,1 +1,3 @@
 keys.py
+*.csv
+._pycache_
