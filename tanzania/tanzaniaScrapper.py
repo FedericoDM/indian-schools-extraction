@@ -18,8 +18,8 @@ class TanzaniaScrapper:
         """
         Create Session with base_url
         """
-        with requests.Session() as session:
-            session.get(self.base_url, self.headers)
+        with requests.Session() as self.session:
+            self.session.get(self.base_url, headers=self.headers, timeout=5)
 
         return self.session
 
@@ -39,7 +39,7 @@ class TanzaniaScrapper:
         # Parse html and get regions
         a_objects = soup.find_all("a")
         unwanted_chars = ["\r", "\n"]
-        regions_dict = {}
+        self.regions_dict = {}
 
         for a_object in a_objects:
             href = a_object["href"]
@@ -50,7 +50,7 @@ class TanzaniaScrapper:
                 region_name = region_name.replace(unwanted_char, "")
 
             region_url = self.base_url.replace("psle.htm", href)
-            regions_dict[region_name] = region_url
+            self.regions_dict[region_name] = region_url
 
         return self.regions_dict
 
@@ -80,7 +80,7 @@ class TanzaniaScrapper:
         a_objects = soup.find_all("a")
 
         unwanted_chars = ["\r", "\n"]
-        distr_dict = {}
+        self.distr_dict = {}
 
         # Get district dictionary from the region url
         for a_object in a_objects:
@@ -95,7 +95,7 @@ class TanzaniaScrapper:
             # else:
             # distr_url = base_url.replace("psle.htm", href)
 
-            distr_dict[distr_name] = distr_url
+            self.distr_dict[distr_name] = distr_url
 
         return self.distr_dict
 
@@ -116,7 +116,7 @@ class TanzaniaScrapper:
         a_objects = soup.find_all("a")
 
         unwanted_chars = ["\r", "\n"]
-        schools_dict = {}
+        self.schools_dict = {}
 
         # Get district dictionary from the region url
         for a_object in a_objects:
@@ -128,7 +128,7 @@ class TanzaniaScrapper:
 
             school_url = self.base_url.replace("psle.htm", f"results/{href}")
 
-            schools_dict[school_name] = school_url
+            self.schools_dict[school_name] = school_url
 
         return self.schools_dict
 
@@ -151,12 +151,12 @@ class TanzaniaScrapper:
         raw_tables = soup.find_all("table")
 
         if len(raw_tables) == 0:
-            raw_table = pd.DataFrame([])
+            self.raw_table = pd.DataFrame([])
 
         else:
             tables = pd.read_html(r.content)
-            raw_table = tables[1]
-            raw_table.rename(
+            self.raw_table = tables[1]
+            self.raw_table.rename(
                 columns={
                     0: "CAND_NO",
                     1: "PREM_NO",
@@ -166,8 +166,8 @@ class TanzaniaScrapper:
                 },
                 inplace=True,
             )
-            raw_table = raw_table.iloc[1:, :]
-            raw_table.reset_index(drop=True, inplace=True)
+            self.raw_table = self.raw_table.iloc[1:, :]
+            self.raw_table.reset_index(drop=True, inplace=True)
 
         return self.raw_table
 
