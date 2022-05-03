@@ -149,11 +149,9 @@ class TanzaniaScrapper:
 
         soup = BeautifulSoup(r.content, "html.parser")
         raw_tables = soup.find_all("table")
+        self.raw_table = pd.DataFrame([])
 
-        if len(raw_tables) == 0:
-            self.raw_table = pd.DataFrame([])
-
-        else:
+        if len(raw_tables) > 1:
             tables = pd.read_html(r.content)
             self.raw_table = tables[1]
             self.raw_table.rename(
