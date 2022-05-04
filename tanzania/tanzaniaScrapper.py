@@ -208,18 +208,18 @@ class TanzaniaScrapper:
         """
         Gets the grades from the raw table
         """
-        str_subjects = self.raw_table["SUBJECTS"]
+        str_subjects = self.raw_table["SUBJECTS"].values
 
         # Casos especiales cuando viene una sola letra, poner un vector de NA's
         if (len(str_subjects) <= 3) or ("*" in str_subjects):
-            clean_grades = ["NA"] * num_subjects
+            self.clean_grades = ["NA"] * num_subjects
         else:
             raw_grades = re.findall(r"\s-\s\w+", str_subjects)
-            clean_grades = []
+            self.clean_grades = []
 
             for raw_grade in raw_grades:
                 clean_grade = re.findall(r"\w+", raw_grade)
                 clean_grade = clean_grade[0]
-                clean_grades.append(clean_grade)
+                self.clean_grades.append(clean_grade)
 
         return self.clean_grades
