@@ -25,7 +25,7 @@ The /ine folder contains code that was used to extract data from the 2022 mexica
 The extract_casillas notebook calls the website's API to extract information per municipality, while the format_data manipulates the resulting dataframes to obtain a cleaner version.
 
 
-## Colombia - BeautifulSout
+## Colombia - BeautifulSoup
 
 Data from all of the schools displayed in the following [page](https://www.redacademica.edu.co/colegios?name=&field_localidad_target_id=All&page=0). The code extracted the characteristics from such schools, and then performed data cleaning to dump the data into a dataframe.
 
