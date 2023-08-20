@@ -1,5 +1,6 @@
 # Webscraping Sideprojects
 
+This repository contains codes for several webscraping one-off projects that I have done. Most of them are in jupyter notebooks because the objective was to extract the data once and then deliver it to the client.
 
 ## Indian Schools - BeautifulSoup
 
